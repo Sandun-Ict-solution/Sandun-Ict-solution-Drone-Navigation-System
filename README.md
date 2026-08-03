@@ -1,5 +1,4 @@
-# DJI Tello · Auto Drive
-
+# Drone Control center
 Single-file Streamlit app for flying a DJI Tello, with a drawn-path
 **Auto Drive** mode. Rebuilt from two source apps — YOLO defect
 detection, analytics, reports, weather, and the AI chat assistant were
