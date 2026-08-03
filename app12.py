@@ -115,24 +115,24 @@ def live_camera_component(height: int = 440):
     initial_src = f"data:image/jpeg;base64,{b64}" if b64 else ""
 
     html = f"""
-<!DOCTYPE html><html><body style="margin:0;padding:0;background:#030710;overflow:hidden">
+<!DOCTYPE html><html><body style="margin:0;padding:0;background:#060B12;overflow:hidden">
 <div style="position:relative;width:100%;height:{height}px">
   <div style="position:absolute;top:6px;left:8px;z-index:10;
-       font-family:'Share Tech Mono',monospace;font-size:0.6rem;color:#ff4757;
+       font-family:'IBM Plex Mono',monospace;font-size:0.6rem;color:#C0392B;
        background:rgba(0,0,0,0.8);padding:2px 8px;border-radius:3px;
-       border:1px solid #ff4757;letter-spacing:2px;
+       border:1px solid #C0392B;letter-spacing:2px;
        animation:br 1s ease-in-out infinite">&#9679; LIVE</div>
   <img id="lf" src="{initial_src}"
        style="width:100%;height:{height}px;display:block;object-fit:contain;
-              background:#030710"
+              background:#060B12"
        alt="Starting stream…">
   <div id="st" style="position:absolute;bottom:6px;right:8px;
-       font-family:monospace;font-size:0.58rem;color:#00d4ff;
+       font-family:monospace;font-size:0.58rem;color:#2E86AB;
        background:rgba(0,0,0,0.65);padding:2px 6px;border-radius:3px"></div>
 </div>
 <style>
   @keyframes br{{0%,100%{{opacity:1}}50%{{opacity:0.25}}}}
-  body{{background:#030710}}
+  body{{background:#060B12}}
 </style>
 <script>
 (function(){{
@@ -186,98 +186,110 @@ PATH_PRESETS = ["Draw Path (manual)", "Grid Scan", "Perimeter Loop", "Zigzag"]
 # ══════════════════════════════════════════════════════════════════════════════
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
-html, body, [class*="css"] { font-family: 'Exo 2', sans-serif; }
-body { background: #050a0e; color: #c8d8e4; }
-.stApp { background: #050a0e; }
-section[data-testid="stSidebar"] { background: #080e14; }
+html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
+body { background: #0B1420; color: #D5DEE6; }
+.stApp { background: #0B1420; }
+section[data-testid="stSidebar"] { background: #101B26; }
+
+@keyframes headerSweep { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
+@keyframes fadeInUp { 0%{opacity:0; transform:translateY(6px)} 100%{opacity:1; transform:translateY(0)} }
+@keyframes breathe { 0%,100%{opacity:1} 50%{opacity:0.55} }
 
 .hud-header {
-  background: linear-gradient(90deg, #050a0e 0%, #0a1628 40%, #0d1f3c 60%, #050a0e 100%);
-  border-bottom: 1px solid #0d4f6e; border-top: 1px solid #0d4f6e;
+  background: linear-gradient(90deg, #0B1420 0%, #152736 40%, #182E45 60%, #0B1420 100%);
+  border-bottom: 1px solid #1C3D52; border-top: 1px solid #1C3D52;
   padding: 10px 24px; margin-bottom: 10px; position: relative; overflow: hidden;
+  animation: fadeInUp 0.5s ease-out;
 }
-.hud-title { font-family:'Rajdhani',sans-serif; font-size:1.8rem; font-weight:700;
-  letter-spacing:3px; color:#00d4ff; text-shadow:0 0 20px rgba(0,212,255,0.5); }
-.hud-subtitle { font-size:0.72rem; color:#4a8fa8; letter-spacing:2px;
+.hud-header::before { content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background: linear-gradient(90deg, transparent, rgba(46,134,171,0.9), transparent);
+  background-size: 50% 100%; animation: headerSweep 4s linear infinite; }
+.hud-title { font-family:'Inter',sans-serif; font-size:1.8rem; font-weight:800;
+  letter-spacing:1.5px; color:#2E86AB; text-shadow:0 0 16px rgba(46,134,171,0.35); }
+.hud-subtitle { font-size:0.72rem; color:#6C89A0; letter-spacing:2px;
   text-transform:uppercase; margin-top:2px; }
-.hud-version { font-family:'Share Tech Mono',monospace; color:#00ff88;
-  font-size:0.75rem; letter-spacing:1px; }
+.hud-version { font-family:'IBM Plex Mono',monospace; color:#27AE60;
+  font-size:0.75rem; letter-spacing:0.5px; }
 
-.s-pill { font-family:'Share Tech Mono',monospace; font-size:0.68rem; letter-spacing:1px;
+.s-pill { font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:1px;
   padding:4px 12px; border-radius:3px; font-weight:600; border:1px solid; text-transform:uppercase; }
-.s-on   { color:#00ff88; border-color:#00ff88; background:rgba(0,255,136,0.08); }
-.s-off  { color:#3a5a6a; border-color:#1a3a4a; background:rgba(0,0,0,0.3); }
-.s-warn { color:#ffa502; border-color:#ffa502; background:rgba(255,165,2,0.08); }
-.s-crit { color:#ff4757; border-color:#ff4757; background:rgba(255,71,87,0.1);
+.s-on   { color:#27AE60; border-color:#27AE60; background:rgba(39,174,96,0.08); }
+.s-off  { color:#43606D; border-color:#24404F; background:rgba(0,0,0,0.3); }
+.s-warn { color:#E67E22; border-color:#E67E22; background:rgba(230,126,34,0.08); }
+.s-crit { color:#C0392B; border-color:#C0392B; background:rgba(192,57,43,0.1);
           animation:pulse-red 1.5s ease-in-out infinite; }
 @keyframes pulse-red { 0%,100%{opacity:1} 50%{opacity:0.6} }
 
-.kpi-card { background:linear-gradient(135deg,#080e14 0%,#0a1628 100%);
-  border:1px solid #0d4f6e; border-radius:6px; padding:12px 14px; text-align:center;
-  box-shadow:0 0 12px rgba(0,212,255,0.05); position:relative; overflow:hidden; }
+.kpi-card { background:linear-gradient(135deg,#101B26 0%,#152736 100%);
+  border:1px solid #1C3D52; border-radius:6px; padding:12px 14px; text-align:center;
+  box-shadow:0 0 12px rgba(46,134,171,0.05); position:relative; overflow:hidden;
+  animation: fadeInUp 0.4s ease-out; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.kpi-card:hover { transform: translateY(-2px); box-shadow:0 4px 16px rgba(46,134,171,0.12); }
 .kpi-card::after { content:''; position:absolute; top:0; left:0; right:0; height:2px;
-  background:linear-gradient(90deg,transparent,#00d4ff,transparent); }
-.kpi-val { font-family:'Share Tech Mono',monospace; font-size:1.5rem; font-weight:700; }
-.kpi-lbl { font-size:0.6rem; color:#4a8fa8; text-transform:uppercase; letter-spacing:2px; margin-top:2px; }
-.kpi-sub { font-size:0.65rem; color:#3a6a7a; margin-top:2px; }
+  background:linear-gradient(90deg,transparent,#2E86AB,transparent); }
+.kpi-val { font-family:'IBM Plex Mono',monospace; font-size:1.5rem; font-weight:700; }
+.kpi-lbl { font-size:0.6rem; color:#6C89A0; text-transform:uppercase; letter-spacing:2px; margin-top:2px; }
+.kpi-sub { font-size:0.65rem; color:#4A6F7D; margin-top:2px; }
 
-.sec-hdr { font-family:'Rajdhani',sans-serif; font-size:0.85rem; font-weight:600;
-  letter-spacing:2px; color:#00d4ff; text-transform:uppercase;
-  border-bottom:1px solid #0d4f6e; padding-bottom:5px; margin:12px 0 8px;
+.sec-hdr { font-family:'Inter',sans-serif; font-size:0.85rem; font-weight:600;
+  letter-spacing:2px; color:#2E86AB; text-transform:uppercase;
+  border-bottom:1px solid #1C3D52; padding-bottom:5px; margin:12px 0 8px;
   display:flex; align-items:center; gap:6px; }
 
-.cam-panel { background:#030710; border:1px solid #0d4f6e; border-radius:8px;
-  overflow:hidden; box-shadow:0 0 30px rgba(0,212,255,0.08); position:relative; }
+.cam-panel { background:#060B12; border:1px solid #1C3D52; border-radius:8px;
+  overflow:hidden; box-shadow:0 0 30px rgba(46,134,171,0.08); position:relative; }
 .cam-offline { display:flex; align-items:center; justify-content:center; height:180px;
-  flex-direction:column; gap:8px; color:#1a4a5a; font-family:'Share Tech Mono',monospace;
+  flex-direction:column; gap:8px; color:#24505F; font-family:'IBM Plex Mono',monospace;
   font-size:0.75rem; letter-spacing:1px;
-  background:repeating-linear-gradient(45deg,#030710,#030710 10px,#050c14 10px,#050c14 20px); }
+  background:repeating-linear-gradient(45deg,#060B12,#060B12 10px,#050c14 10px,#050c14 20px); }
 
-.stTabs [data-baseweb="tab-list"] { gap:4px; background:#080e14; border-radius:6px;
-  padding:4px; border:1px solid #0d4f6e; }
+.stTabs [data-baseweb="tab-list"] { gap:4px; background:#101B26; border-radius:6px;
+  padding:4px; border:1px solid #1C3D52; }
 .stTabs [data-baseweb="tab"] { background:transparent; border-radius:4px; padding:5px 14px;
-  color:#4a8fa8; font-size:0.75rem; font-weight:600; font-family:'Rajdhani',sans-serif; letter-spacing:1px; }
-.stTabs [aria-selected="true"] { background:linear-gradient(135deg,#0d2a4e,#0a1f3a) !important;
-  color:#00d4ff !important; border:1px solid #00d4ff !important; }
+  color:#6C89A0; font-size:0.75rem; font-weight:600; font-family:'Inter',sans-serif; letter-spacing:1px;
+  transition: color 0.2s ease, background 0.2s ease; }
+.stTabs [aria-selected="true"] { background:linear-gradient(135deg,#1D3A52,#152C42) !important;
+  color:#2E86AB !important; border:1px solid #2E86AB !important; }
 
-.mini-map { background:#030710; border:1px solid #0d4f6e; border-radius:6px; padding:8px;
-  text-align:center; font-family:'Share Tech Mono',monospace; font-size:0.65rem; color:#4a8fa8; }
+.mini-map { background:#060B12; border:1px solid #1C3D52; border-radius:6px; padding:8px;
+  text-align:center; font-family:'IBM Plex Mono',monospace; font-size:0.65rem; color:#6C89A0; }
 
-.safety-bar { display:flex; gap:6px; align-items:center; padding:6px 10px; background:#080e14;
-  border:1px solid #0d4f6e; border-radius:5px; margin-bottom:8px; }
+.safety-bar { display:flex; gap:6px; align-items:center; padding:6px 10px; background:#101B26;
+  border:1px solid #1C3D52; border-radius:5px; margin-bottom:8px; }
 .safety-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
-.safety-safe    { background:#00ff88; box-shadow:0 0 6px #00ff88; }
-.safety-caution { background:#ffa502; box-shadow:0 0 6px #ffa502; }
-.safety-danger  { background:#ff4757; box-shadow:0 0 6px #ff4757; animation:pulse-red 0.8s ease-in-out infinite; }
+.safety-safe    { background:#27AE60; box-shadow:0 0 6px #27AE60; animation:breathe 2.4s ease-in-out infinite; }
+.safety-caution { background:#E67E22; box-shadow:0 0 6px #E67E22; animation:pulse-red 1.4s ease-in-out infinite; }
+.safety-danger  { background:#C0392B; box-shadow:0 0 6px #C0392B; animation:pulse-red 0.8s ease-in-out infinite; }
 
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
-.rec-dot { display:inline-block; width:9px; height:9px; background:#ff4757; border-radius:50%;
+.rec-dot { display:inline-block; width:9px; height:9px; background:#C0392B; border-radius:50%;
   animation:blink 0.8s ease-in-out infinite; margin-right:6px; }
 
-.alert-crit { background:rgba(255,71,87,0.08); border-left:3px solid #ff4757; padding:6px 12px;
-  margin:2px 0; border-radius:0 5px 5px 0; font-size:0.77rem; font-family:'Share Tech Mono',monospace; }
-.alert-warn { background:rgba(255,165,2,0.08); border-left:3px solid #ffa502; padding:6px 12px;
-  margin:2px 0; border-radius:0 5px 5px 0; font-size:0.77rem; font-family:'Share Tech Mono',monospace; }
-.alert-info { background:rgba(0,212,255,0.06); border-left:3px solid #00d4ff; padding:6px 12px;
-  margin:2px 0; border-radius:0 5px 5px 0; font-size:0.77rem; font-family:'Share Tech Mono',monospace; }
-.alert-ok   { background:rgba(0,255,136,0.06); border-left:3px solid #00ff88; padding:6px 12px;
-  margin:2px 0; border-radius:0 5px 5px 0; font-size:0.77rem; font-family:'Share Tech Mono',monospace; }
+.alert-crit { background:rgba(192,57,43,0.08); border-left:3px solid #C0392B; padding:6px 12px;
+  margin:2px 0; border-radius:0 5px 5px 0; font-size:0.77rem; font-family:'IBM Plex Mono',monospace; }
+.alert-warn { background:rgba(230,126,34,0.08); border-left:3px solid #E67E22; padding:6px 12px;
+  margin:2px 0; border-radius:0 5px 5px 0; font-size:0.77rem; font-family:'IBM Plex Mono',monospace; }
+.alert-info { background:rgba(46,134,171,0.06); border-left:3px solid #2E86AB; padding:6px 12px;
+  margin:2px 0; border-radius:0 5px 5px 0; font-size:0.77rem; font-family:'IBM Plex Mono',monospace; }
+.alert-ok   { background:rgba(39,174,96,0.06); border-left:3px solid #27AE60; padding:6px 12px;
+  margin:2px 0; border-radius:0 5px 5px 0; font-size:0.77rem; font-family:'IBM Plex Mono',monospace; }
 
 .grid-cell-btn button { min-width:38px !important; height:38px !important; padding:0 !important; }
 
-[data-testid="stMetric"] { background:#080e14; border:1px solid #0d4f6e; border-radius:6px; padding:10px; }
-[data-testid="stMetricLabel"] { color:#4a8fa8 !important; font-size:0.7rem !important; letter-spacing:1px; }
-[data-testid="stMetricValue"] { color:#00d4ff !important; font-family:'Share Tech Mono',monospace !important; }
+[data-testid="stMetric"] { background:#101B26; border:1px solid #1C3D52; border-radius:6px; padding:10px; }
+[data-testid="stMetricLabel"] { color:#6C89A0 !important; font-size:0.7rem !important; letter-spacing:1px; }
+[data-testid="stMetricValue"] { color:#2E86AB !important; font-family:'IBM Plex Mono',monospace !important; }
 
-.stButton > button { background:linear-gradient(135deg,#080e14,#0a1628) !important;
-  border:1px solid #0d4f6e !important; color:#c8d8e4 !important; border-radius:5px !important;
-  font-family:'Rajdhani',sans-serif !important; font-weight:600 !important; letter-spacing:1px !important;
-  font-size:0.78rem !important; text-transform:uppercase !important; }
-.stButton > button:hover { border-color:#00d4ff !important; color:#00d4ff !important; }
-.stButton > button[kind="primary"] { background:linear-gradient(135deg,#0d2a4e,#0a1f3a) !important;
-  border-color:#00d4ff !important; color:#00d4ff !important; }
+.stButton > button { background:linear-gradient(135deg,#101B26,#152736) !important;
+  border:1px solid #1C3D52 !important; color:#D5DEE6 !important; border-radius:5px !important;
+  font-family:'Inter',sans-serif !important; font-weight:600 !important; letter-spacing:1px !important;
+  font-size:0.78rem !important; text-transform:uppercase !important;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.15s ease !important; }
+.stButton > button:hover { border-color:#2E86AB !important; color:#2E86AB !important; transform: translateY(-1px); }
+.stButton > button[kind="primary"] { background:linear-gradient(135deg,#1D3A52,#152C42) !important;
+  border-color:#2E86AB !important; color:#2E86AB !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -495,21 +507,21 @@ def path_minimap_svg(waypoints, current_wp):
     for i in range(1, len(waypoints)):
         x1, y1 = nx(waypoints[i-1]["x"]), ny(waypoints[i-1]["y"])
         x2, y2 = nx(waypoints[i]["x"]), ny(waypoints[i]["y"])
-        lines += f'<line x1="{x1:.0f}" y1="{y1:.0f}" x2="{x2:.0f}" y2="{y2:.0f}" stroke="#0d4f6e" stroke-width="2"/>'
+        lines += f'<line x1="{x1:.0f}" y1="{y1:.0f}" x2="{x2:.0f}" y2="{y2:.0f}" stroke="#1C3D52" stroke-width="2"/>'
 
     dots = ""
     for i, wp in enumerate(waypoints):
         x, y = nx(wp["x"]), ny(wp["y"])
-        color = "#00ff88" if i < current_wp else "#00d4ff" if i == current_wp else "#1a3a4a"
+        color = "#27AE60" if i < current_wp else "#2E86AB" if i == current_wp else "#24404F"
         r = 5 if i == current_wp else 3
         dots += f'<circle cx="{x:.0f}" cy="{y:.0f}" r="{r}" fill="{color}"/>'
 
     return f"""
 <div class="mini-map">
   <svg width="{W}" height="{H}" style="display:block;margin:0 auto">
-    <rect width="{W}" height="{H}" fill="#030710" rx="4"/>{lines}{dots}
+    <rect width="{W}" height="{H}" fill="#060B12" rx="4"/>{lines}{dots}
   </svg>
-  <div style="margin-top:4px;font-size:0.6rem;color:#4a8fa8">
+  <div style="margin-top:4px;font-size:0.6rem;color:#6C89A0">
     WP {current_wp}/{len(waypoints)} · {waypoints[min(current_wp, len(waypoints)-1)]['label']}
   </div>
 </div>"""
@@ -1135,7 +1147,7 @@ def _do_move(direction, dist=None):
 # ══════════════════════════════════════════════════════════════════════════════
 #  UI HELPERS
 # ══════════════════════════════════════════════════════════════════════════════
-def kpi(val, label, sub="", color="#00d4ff"):
+def kpi(val, label, sub="", color="#2E86AB"):
     sub_html = f'<div class="kpi-sub">{sub}</div>' if sub else ""
     return (f'<div class="kpi-card"><div class="kpi-val" style="color:{color}">{val}</div>'
             f'<div class="kpi-lbl">{label}</div>{sub_html}</div>')
@@ -1177,11 +1189,11 @@ st.markdown(f"""
   <div style="display:flex;justify-content:space-between;align-items:center">
     <div>
       <div class="hud-title">🚁 TELLO AUTO DRIVE</div>
-      <div class="hud-subtitle">Draw a path · fly that path only · keep clear of walls · capture video</div>
+      <div class="hud-subtitle">Drone Control Center · draw a path · fly that path only · keep clear of walls · capture video</div>
     </div>
     <div style="text-align:right">
       <div class="hud-version">SYS: {datetime.datetime.now().strftime('%H:%M:%S')}</div>
-      <div class="hud-version" style="color:{'#00ff88' if safety=='SAFE' else '#ffa502' if safety=='CAUTION' else '#ff4757'}">
+      <div class="hud-version" style="color:{'#27AE60' if safety=='SAFE' else '#E67E22' if safety=='CAUTION' else '#C0392B'}">
         SAFETY: {safety}
       </div>
     </div>
@@ -1200,7 +1212,7 @@ sb[5].markdown(pill(f"WALL {_d}cm", "on" if _d>120 else "warn" if _d>60 else "cr
 _health = st.session_state.get("stream_health", "—")
 sb[6].markdown(pill(f"STREAM {_health}", {"OK":"on","WARN":"warn","ERROR":"crit"}.get(_health,"off")), unsafe_allow_html=True)
 
-st.markdown("<hr style='border-color:#0d4f6e;margin:5px 0 8px'>", unsafe_allow_html=True)
+st.markdown("<hr style='border-color:#1C3D52;margin:5px 0 8px'>", unsafe_allow_html=True)
 
 tab_ctrl, tab_cam, tab_auto, tab_telem = st.tabs([
     "🎮 CONTROL", "📷 LIVE CAMERA", "🧭 AUTO DRIVE", "📡 TELEMETRY",
@@ -1216,10 +1228,10 @@ with tab_ctrl:
         st.markdown('<div class="sec-hdr">📶 CONNECTION</div>', unsafe_allow_html=True)
         if not conn:
             st.markdown("""
-<div style="background:#080e14;border:1px solid #0d4f6e;border-radius:6px;padding:10px 14px;font-size:0.78rem;margin-bottom:8px">
-  <b style="color:#00d4ff">Setup:</b><br>
+<div style="background:#101B26;border:1px solid #1C3D52;border-radius:6px;padding:10px 14px;font-size:0.78rem;margin-bottom:8px">
+  <b style="color:#2E86AB">Setup:</b><br>
   1. Power on Tello (LED blinks yellow)<br>
-  2. Connect this device to <code style="color:#00d4ff">TELLO-XXXXXX</code> WiFi<br>
+  2. Connect this device to <code style="color:#2E86AB">TELLO-XXXXXX</code> WiFi<br>
   3. Click Connect ↓
 </div>""", unsafe_allow_html=True)
             st.session_state["auto_reconnect"] = st.toggle(
@@ -1318,7 +1330,7 @@ with tab_ctrl:
             st.markdown("""
 <div class="cam-panel"><div class="cam-offline">
   <div style="font-size:1.5rem">📷</div><div>CAMERA OFFLINE</div>
-  <div style="color:#1a3a4a">Connect drone &amp; start camera</div>
+  <div style="color:#24404F">Connect drone &amp; start camera</div>
 </div></div>""", unsafe_allow_html=True)
 
         st.markdown('<div class="sec-hdr">🎛️ CAMERA SETTINGS</div>', unsafe_allow_html=True)
@@ -1369,7 +1381,7 @@ with tab_cam:
             st.markdown("""
 <div class="cam-panel"><div class="cam-offline">
   <div style="font-size:2rem">📷</div><div>CAMERA OFFLINE</div>
-  <div style="color:#1a3a4a;font-size:0.75rem">Connect drone &amp; start camera</div>
+  <div style="color:#24404F;font-size:0.75rem">Connect drone &amp; start camera</div>
 </div></div>""", unsafe_allow_html=True)
         else:
             live_camera_component(height=440)
@@ -1488,13 +1500,13 @@ with tab_auto:
 
         st.markdown('<div class="sec-hdr">📊 MISSION STATUS</div>', unsafe_allow_html=True)
         st.markdown(f"""
-<div style="background:#080e14;border:1px solid #0d4f6e;border-radius:6px;padding:12px;font-family:'Share Tech Mono',monospace;font-size:0.72rem;line-height:1.8">
-  <div>Phase: <span style="color:#00d4ff">{phase.upper()}</span></div>
-  <div>Waypoints: <span style="color:#00d4ff">{cur_wp}/{len(wps)}</span></div>
-  <div>Missions done: <span style="color:#00ff88">{stats['missions_completed']}</span></div>
-  <div>Wall holds: <span style="color:#ffa502">{stats['wall_holds']}</span></div>
-  <div>Elapsed: <span style="color:#c8d8e4">{mission_elapsed()}</span></div>
-  <div>ID: <span style="color:#4a8fa8">{st.session_state.get('mission_id','—')}</span></div>
+<div style="background:#101B26;border:1px solid #1C3D52;border-radius:6px;padding:12px;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;line-height:1.8">
+  <div>Phase: <span style="color:#2E86AB">{phase.upper()}</span></div>
+  <div>Waypoints: <span style="color:#2E86AB">{cur_wp}/{len(wps)}</span></div>
+  <div>Missions done: <span style="color:#27AE60">{stats['missions_completed']}</span></div>
+  <div>Wall holds: <span style="color:#E67E22">{stats['wall_holds']}</span></div>
+  <div>Elapsed: <span style="color:#D5DEE6">{mission_elapsed()}</span></div>
+  <div>ID: <span style="color:#6C89A0">{st.session_state.get('mission_id','—')}</span></div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -1503,13 +1515,13 @@ with tab_auto:
         st.markdown(f"""
 <div class="safety-bar" style="margin-top:8px">
   <div class="safety-dot {s_dot}"></div>
-  <div style="color:{'#00ff88' if safety_now=='SAFE' else '#ffa502' if safety_now=='CAUTION' else '#ff4757'};font-size:0.8rem;font-weight:700">
+  <div style="color:{'#27AE60' if safety_now=='SAFE' else '#E67E22' if safety_now=='CAUTION' else '#C0392B'};font-size:0.8rem;font-weight:700">
     SAFETY: {safety_now}
   </div>
 </div>
-<div style="background:#080e14;border:1px solid #0d4f6e;border-radius:6px;padding:8px;
-            font-family:'Share Tech Mono',monospace;font-size:0.68rem;line-height:1.7;margin-top:4px">
-  <div>Wall dist: <span style="color:{'#00ff88' if tel.get('tof',0)>120 else '#ffa502' if tel.get('tof',0)>60 else '#ff4757'}">{tel.get('tof',0)}cm</span></div>
+<div style="background:#101B26;border:1px solid #1C3D52;border-radius:6px;padding:8px;
+            font-family:'IBM Plex Mono',monospace;font-size:0.68rem;line-height:1.7;margin-top:4px">
+  <div>Wall dist: <span style="color:{'#27AE60' if tel.get('tof',0)>120 else '#E67E22' if tel.get('tof',0)>60 else '#C0392B'}">{tel.get('tof',0)}cm</span></div>
   <div>Alt: {tel.get('height',0)}cm (limit {st.session_state['safety_max_alt']}cm)</div>
   <div>Battery: {bat:.0f}% (land@{st.session_state['min_battery_rtl']}%)</div>
 </div>
@@ -1530,18 +1542,18 @@ with tab_telem:
         st.markdown('<div class="sec-hdr">📡 FLIGHT SENSORS</div>', unsafe_allow_html=True)
         st.markdown(f"""
 <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:8px">
-  {kpi(f"{tel.get('battery',0)}%","Battery",color="#00ff88")}
-  {kpi(f"{tel.get('height',0)} cm","Altitude",color="#00d4ff")}
-  {kpi(f"{tel.get('tof',0)} cm","Wall/ToF Dist",color="#ffa502")}
-  {kpi(f"{tel.get('yaw',0):.0f}°","Yaw",color="#00d4ff")}
-  {kpi(f"{tel.get('pitch',0):.0f}°","Pitch",color="#c8d8e4")}
-  {kpi(f"{tel.get('roll',0):.0f}°","Roll",color="#c8d8e4")}
-  {kpi(f"{tel.get('speed_x',0)} cm/s","Speed X",color="#00d4ff")}
-  {kpi(f"{tel.get('speed_y',0)} cm/s","Speed Y",color="#00d4ff")}
-  {kpi(f"{tel.get('speed_z',0)} cm/s","Speed Z",color="#00d4ff")}
-  {kpi(f"{tel.get('accel_x',0):.1f}","Accel X",color="#c8d8e4")}
-  {kpi(f"{tel.get('accel_y',0):.1f}","Accel Y",color="#c8d8e4")}
-  {kpi(f"{tel.get('accel_z',0):.1f}","Accel Z",color="#c8d8e4")}
+  {kpi(f"{tel.get('battery',0)}%","Battery",color="#27AE60")}
+  {kpi(f"{tel.get('height',0)} cm","Altitude",color="#2E86AB")}
+  {kpi(f"{tel.get('tof',0)} cm","Wall/ToF Dist",color="#E67E22")}
+  {kpi(f"{tel.get('yaw',0):.0f}°","Yaw",color="#2E86AB")}
+  {kpi(f"{tel.get('pitch',0):.0f}°","Pitch",color="#D5DEE6")}
+  {kpi(f"{tel.get('roll',0):.0f}°","Roll",color="#D5DEE6")}
+  {kpi(f"{tel.get('speed_x',0)} cm/s","Speed X",color="#2E86AB")}
+  {kpi(f"{tel.get('speed_y',0)} cm/s","Speed Y",color="#2E86AB")}
+  {kpi(f"{tel.get('speed_z',0)} cm/s","Speed Z",color="#2E86AB")}
+  {kpi(f"{tel.get('accel_x',0):.1f}","Accel X",color="#D5DEE6")}
+  {kpi(f"{tel.get('accel_y',0):.1f}","Accel Y",color="#D5DEE6")}
+  {kpi(f"{tel.get('accel_z',0):.1f}","Accel Z",color="#D5DEE6")}
 </div>
 """, unsafe_allow_html=True)
 
@@ -1559,13 +1571,13 @@ with tab_telem:
             df_fl = pd.DataFrame(fl[-300:])
             if PLOTLY_AVAILABLE and "height" in df_fl.columns and "battery" in df_fl.columns:
                 fig = go.Figure()
-                fig.add_trace(go.Scatter(y=df_fl["height"], name="Altitude (cm)", line=dict(color="#00d4ff")))
-                fig.add_trace(go.Scatter(y=df_fl["battery"], name="Battery %", line=dict(color="#00ff88"), yaxis="y2"))
-                fig.update_layout(height=260, paper_bgcolor="#050a0e", plot_bgcolor="#080e14",
-                                   font=dict(color="#c8d8e4", size=10),
-                                   xaxis=dict(gridcolor="#0d4f6e", showgrid=True),
-                                   yaxis=dict(gridcolor="#0d4f6e"), yaxis2=dict(overlaying="y", side="right"),
-                                   margin=dict(l=30, r=30, t=20, b=20), legend=dict(bgcolor="#080e14"))
+                fig.add_trace(go.Scatter(y=df_fl["height"], name="Altitude (cm)", line=dict(color="#2E86AB")))
+                fig.add_trace(go.Scatter(y=df_fl["battery"], name="Battery %", line=dict(color="#27AE60"), yaxis="y2"))
+                fig.update_layout(height=260, paper_bgcolor="#0B1420", plot_bgcolor="#101B26",
+                                   font=dict(color="#D5DEE6", size=10),
+                                   xaxis=dict(gridcolor="#1C3D52", showgrid=True),
+                                   yaxis=dict(gridcolor="#1C3D52"), yaxis2=dict(overlaying="y", side="right"),
+                                   margin=dict(l=30, r=30, t=20, b=20), legend=dict(bgcolor="#101B26"))
                 st.plotly_chart(fig, use_container_width=True)
             else:
                 st.line_chart(df_fl.set_index("time")[["height", "battery"]] if "time" in df_fl.columns else df_fl)
@@ -1582,7 +1594,7 @@ with tab_telem:
                                mime="text/csv", key="dl_flight_csv", use_container_width=True)
 
 # ── Footer ─────────────────────────────────────────────────────────────────
-st.markdown("<hr style='border-color:#0d4f6e;margin:16px 0 6px'>", unsafe_allow_html=True)
+st.markdown("<hr style='border-color:#1C3D52;margin:16px 0 6px'>", unsafe_allow_html=True)
 st.caption(
     f"🚁 Tello Auto Drive · djitellopy {'✅' if TELLO_AVAILABLE else '❌ not installed'} · "
     f"OpenCV {'✅' if CV2_AVAILABLE else '❌ not installed'} · "
