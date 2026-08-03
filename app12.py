@@ -198,11 +198,13 @@ section[data-testid="stSidebar"] { background: #101B26; }
 @keyframes breathe { 0%,100%{opacity:1} 50%{opacity:0.55} }
 
 .hud-header {
-  background: linear-gradient(90deg, #0B1420 0%, #152736 40%, #182E45 60%, #0B1420 100%);
+  background: linear-gradient(120deg, #0A1118 0%, #12222F 35%, #16303F 55%, #0A1118 100%);
+  background-size: 200% 100%;
+  animation: fadeInUp 0.5s ease-out, gradientDrift 12s ease-in-out infinite;
   border-bottom: 1px solid #1C3D52; border-top: 1px solid #1C3D52;
   padding: 10px 24px; margin-bottom: 10px; position: relative; overflow: hidden;
-  animation: fadeInUp 0.5s ease-out;
 }
+@keyframes gradientDrift { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
 .hud-header::before { content:''; position:absolute; top:0; left:0; right:0; height:2px;
   background: linear-gradient(90deg, transparent, rgba(46,134,171,0.9), transparent);
   background-size: 50% 100%; animation: headerSweep 4s linear infinite; }
@@ -290,6 +292,12 @@ section[data-testid="stSidebar"] { background: #101B26; }
 .stButton > button:hover { border-color:#2E86AB !important; color:#2E86AB !important; transform: translateY(-1px); }
 .stButton > button[kind="primary"] { background:linear-gradient(135deg,#1D3A52,#152C42) !important;
   border-color:#2E86AB !important; color:#2E86AB !important; }
+
+@keyframes radarPing { 0%{box-shadow:0 0 0 0 rgba(39,174,96,0.55)} 100%{box-shadow:0 0 0 8px rgba(39,174,96,0)} }
+.sys-online-dot { display:inline-block; width:8px; height:8px; border-radius:50%;
+  background:#27AE60; margin-right:6px; animation: radarPing 1.6s ease-out infinite; }
+.sys-online-badge { font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:1px;
+  color:#27AE60; display:inline-flex; align-items:center; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -1188,10 +1196,11 @@ st.markdown(f"""
 <div class="hud-header">
   <div style="display:flex;justify-content:space-between;align-items:center">
     <div>
-      <div class="hud-title">🚁 TELLO AUTO DRIVE</div>
-      <div class="hud-subtitle">Drone Control Center · draw a path · fly that path only · keep clear of walls · capture video</div>
+      <div class="hud-title">🚁 DRONE CONTROL CENTER</div>
+      <div class="hud-subtitle">Tello Auto Drive · draw a path · fly that path only · keep clear of walls · capture video</div>
     </div>
     <div style="text-align:right">
+      <div class="sys-online-badge"><span class="sys-online-dot"></span>SYSTEM ONLINE</div>
       <div class="hud-version">SYS: {datetime.datetime.now().strftime('%H:%M:%S')}</div>
       <div class="hud-version" style="color:{'#27AE60' if safety=='SAFE' else '#E67E22' if safety=='CAUTION' else '#C0392B'}">
         SAFETY: {safety}
